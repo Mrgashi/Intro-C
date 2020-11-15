@@ -17,20 +17,21 @@ namespace GradeBook
            grades.Add(grade); 
        }
 
-        public static void showStats(Book book) 
+        public Statistics GetStatistics(Book book) 
        {
-            var result = 0.0;
-            var highGrade = double.MinValue;
-            var lowGrade = double.MaxValue;
+           var result = new Statistics(); 
+           result.Average = 0.0;
+           result.High = double.MinValue;
+           result.Low = double.MaxValue;
 
             foreach (double grade in grades)
             {
-                highGrade = Math.Max(grade, highGrade);
-                lowGrade = Math.Min(grade, lowGrade);
-                result += grade;
+                result.High = Math.Max(grade, result.High);
+                result.Low = Math.Min(grade, result.Low);
+                result.Average += grade;
             }
-            result /= grades.Count;
-            Console.WriteLine($"{book.name}\nThe avarage grade is: {result:N1}.\nThe lowest number is: {lowGrade:N2}. \nThe highest grade is {highGrade:N2} ");
+            result.Average /= grades.Count;
+            return result;
        }
     }
 }
